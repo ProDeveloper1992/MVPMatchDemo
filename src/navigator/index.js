@@ -3,7 +3,7 @@ import {Platform, StatusBar, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {navigationRef} from './root-navigation';
-import {HomeScreen} from '../screens';
+import {FavoritesScreen, HomeScreen, MovieDetailScreen} from '../screens';
 
 const RootStack = createStackNavigator();
 
@@ -20,6 +20,16 @@ export default function () {
             name={'home-screen'}
             component={HomeScreen}
             options={{title: 'Home', headerBackTitle: ''}}
+          />
+          <RootStack.Screen
+            name={'movie-detail-screen'}
+            component={MovieDetailScreen}
+            options={{title: 'Details', headerBackTitle: ''}}
+          />
+          <RootStack.Screen
+            name={'favorites-screen'}
+            component={FavoritesScreen}
+            options={{title: 'Favorites', headerBackTitle: ''}}
           />
         </RootStack.Navigator>
       </NavigationContainer>

@@ -1,38 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  ActivityIndicator,
-} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import {Colors, Icons} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
-import {AppInput, AppText, MovieItem} from '../../components';
+import {AppText, MovieItem} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {getMoviesList} from '../../redux/actions/user-action';
 import {FontTypes} from '../../constants/font-types';
 
-const Home = () => {
+const FavoritesScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const {moviesList} = useSelector((state) => state.userState);
-
-  const [searchText, setSearchText] = useState('');
-  const [searching, setSearching] = useState(false);
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('favorites-screen')}>
-          <Image source={Icons.heart_outline} style={styles.searchIcon} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
+  const {favorites} = useSelector((state) => state.userState);
 
   useEffect(() => {
     loadMovies();
@@ -42,39 +21,14 @@ const Home = () => {
     await dispatch(getMoviesList('aven'));
   };
 
-  const onDebounceText = async (text) => {
-    let sText = text ? text : 'aven';
-    setSearching(true);
-    await dispatch(getMoviesList(sText));
-    setSearching(false);
-  };
-
   return (
     <View style={styles.container}>
-      <AppInput
-        value={searchText}
-        placeholder={'Type movie name here...'}
-        isDebounce={true}
-        style={{paddingHorizontal: 15}}
-        onChangeText={setSearchText}
-        onDebounceText={onDebounceText}
-        rightIcon={
-          searching ? (
-            <ActivityIndicator size={'small'} color={Colors.ui_black} />
-          ) : null
-        }
-        icon={
-          <TouchableOpacity>
-            <Image source={Icons.search} style={styles.searchIcon} />
-          </TouchableOpacity>
-        }
-      />
       <FlatList
         numColumns={2}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
         keyExtractor={(item, index) => String(index)}
-        data={moviesList}
+        data={favorites}
         renderItem={({item, index}) => {
           return (
             <View key={String(index)} style={{flex: 0.5}}>
@@ -118,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default FavoritesScreen;
