@@ -28,7 +28,10 @@ const Home = () => {
       headerRight: () => (
         <TouchableOpacity
           onPress={() => navigation.navigate('favorites-screen')}>
-          <Image source={Icons.heart_outline} style={styles.searchIcon} />
+          <Image
+            source={Icons.heart_outline}
+            style={[styles.searchIcon, {marginEnd: 20}]}
+          />
         </TouchableOpacity>
       ),
     });
@@ -114,7 +117,6 @@ const styles = StyleSheet.create({
   searchIcon: {
     width: 24,
     height: 24,
-    marginEnd: 20,
   },
 });
 

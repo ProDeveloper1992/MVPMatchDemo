@@ -41,15 +41,9 @@ export default function MovieDetail(props) {
   const onHeartPress = () => {
     if (isFavorite()) {
       dispatch(removeFromFavorite(movie));
-      // const filteredFavorites = FAVORITES.filter(
-      //   (favItem) => movie.id != favItem.id,
-      // );
-      // FAVORITES = filteredFavorites;
     } else {
-      // FAVORITES.push(movie);
       dispatch(addToFavorite(movie));
     }
-    // dispatch(ActionDispatcher(SET_FAVORITES_LIST, FAVORITES));
   };
 
   return (

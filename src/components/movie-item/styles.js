@@ -23,4 +23,12 @@ export default StyleSheet.create({
   detailsContainer: {
     padding: 10,
   },
+  heartIcon: {
+    width: 24,
+    height: 24,
+  },
+  rowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
