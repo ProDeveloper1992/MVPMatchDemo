@@ -7,6 +7,10 @@ import {FontTypes} from '../../constants/font-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {ActionDispatcher} from '../../redux/actions';
 import {SET_FAVORITES_LIST} from '../../redux/actions/types';
+import {
+  addToFavorite,
+  removeFromFavorite,
+} from '../../redux/actions/user-action';
 
 export default function MovieDetail(props) {
   const {movie} = props.route.params;
@@ -15,8 +19,6 @@ export default function MovieDetail(props) {
   const dispatch = useDispatch();
 
   const {favorites} = useSelector((state) => state.userState);
-
-  var FAVORITES = [];
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -29,8 +31,6 @@ export default function MovieDetail(props) {
       for (let fav of favorites) {
         if (fav.id === movie.id) {
           return true;
-        } else {
-          return false;
         }
       }
     } else {
@@ -40,14 +40,16 @@ export default function MovieDetail(props) {
 
   const onHeartPress = () => {
     if (isFavorite()) {
-      const filteredFavorites = FAVORITES.filter(
-        (favItem) => movie.id != favItem.ParentId,
-      );
-      FAVORITES = filteredFavorites;
+      dispatch(removeFromFavorite(movie));
+      // const filteredFavorites = FAVORITES.filter(
+      //   (favItem) => movie.id != favItem.id,
+      // );
+      // FAVORITES = filteredFavorites;
     } else {
-      FAVORITES.push(movie);
+      // FAVORITES.push(movie);
+      dispatch(addToFavorite(movie));
     }
-    dispatch(ActionDispatcher(SET_FAVORITES_LIST, FAVORITES));
+    // dispatch(ActionDispatcher(SET_FAVORITES_LIST, FAVORITES));
   };
 
   return (

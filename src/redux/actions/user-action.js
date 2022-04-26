@@ -1,6 +1,6 @@
 import {client} from '../../services/api-service';
 import {ActionDispatcher} from './index';
-import {GET_MOVIES_LIST_SUCCESS} from './types';
+import {GET_MOVIES_LIST_SUCCESS, SET_FAVORITES_LIST} from './types';
 
 export const getMoviesList = (searchText = 'aven') => (dispatch) =>
   new Promise(function (resolve, reject) {
@@ -17,3 +17,17 @@ export const getMoviesList = (searchText = 'aven') => (dispatch) =>
         reject(err);
       });
   });
+
+export const addToFavorite = (item) => (dispatch, getState) => {
+  let favorites = getState().userState.favorites;
+  favorites.push(item);
+  dispatch(ActionDispatcher(SET_FAVORITES_LIST, favorites));
+};
+
+export const removeFromFavorite = (item) => (dispatch, getState) => {
+  let favorites = getState().userState.favorites;
+  const filteredFavorites = favorites.filter(
+    (favItem) => item.id != favItem.id,
+  );
+  dispatch(ActionDispatcher(SET_FAVORITES_LIST, filteredFavorites));
+};
