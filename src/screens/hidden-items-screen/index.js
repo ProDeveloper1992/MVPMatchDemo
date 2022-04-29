@@ -5,8 +5,8 @@ import {AppText, MovieItem} from '../../components';
 import {useSelector} from 'react-redux';
 import {FontTypes} from '../../constants/font-types';
 
-const FavoritesScreen = () => {
-  const {favorites} = useSelector((state) => state.userState);
+const HiddenItemsScreen = () => {
+  const {hiddenItems} = useSelector((state) => state.userState);
 
   return (
     <View style={styles.container}>
@@ -15,7 +15,7 @@ const FavoritesScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
         keyExtractor={(item, index) => String(index)}
-        data={favorites}
+        data={hiddenItems}
         renderItem={({item, index}) => {
           return (
             <View key={String(index)} style={{flex: 0.5}}>
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavoritesScreen;
+export default HiddenItemsScreen;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {ButtonTypes, Colors} from '../../constants';
 import styles, {getTextColor} from './style';
 import {AppText} from '..';
+import {FontTypes} from '../../constants/font-types';
 
 const Button = ({
   title,
@@ -27,7 +28,10 @@ const Button = ({
         <View style={styles.rowCenter}>
           {icon}
           {title != '' ? (
-            <AppText size={fontSize} color={getTextColor(type)}>
+            <AppText
+              size={fontSize}
+              fontType={FontTypes.bold}
+              color={getTextColor(type)}>
               {title}
             </AppText>
           ) : null}
@@ -55,7 +59,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   type: ButtonTypes.default,
-  fontSize: 14,
+  fontSize: 16,
   title: '',
   icon: null,
   loading: false,

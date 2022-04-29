@@ -3,4 +3,5 @@ export const Icons = {
   home: require('../assets/home.png'),
   heart_filled: require('../assets/heart_filled.png'),
   heart_outline: require('../assets/heart_outline.png'),
+  hidden: require('../assets/hidden.png'),
 };

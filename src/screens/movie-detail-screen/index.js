@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import {AppText} from '../../components';
+import {AppText, Button} from '../../components';
 import {Colors, DIMENSIONS, Icons} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {FontTypes} from '../../constants/font-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {ActionDispatcher} from '../../redux/actions';
-import {SET_FAVORITES_LIST} from '../../redux/actions/types';
+import {
+  GET_MOVIES_LIST_SUCCESS,
+  SET_FAVORITES_LIST,
+} from '../../redux/actions/types';
 import {
   addToFavorite,
+  addToHiddenItems,
   removeFromFavorite,
+  removeFromHiddenItems,
 } from '../../redux/actions/user-action';
 
 export default function MovieDetail(props) {
@@ -18,7 +23,9 @@ export default function MovieDetail(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const {favorites} = useSelector((state) => state.userState);
+  const {favorites, hiddenItems, moviesList} = useSelector(
+    (state) => state.userState,
+  );
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,6 +53,26 @@ export default function MovieDetail(props) {
     }
   };
 
+  const isHidden = () => {
+    if (hiddenItems && hiddenItems.length > 0) {
+      for (let hiddenItem of hiddenItems) {
+        if (hiddenItem.id === movie.id) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const onHidePress = () => {
+    if (isHidden()) {
+      dispatch(removeFromHiddenItems(movie));
+    } else {
+      dispatch(addToHiddenItems(movie));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image source={{uri: movie?.i?.imageUrl}} style={styles.image} />
@@ -68,6 +95,12 @@ export default function MovieDetail(props) {
         {movie?.rank ? (
           <AppText style={{marginVertical: 5}}>{`Rank: ${movie.rank}`}</AppText>
         ) : null}
+
+        <Button
+          title={isHidden() ? 'UnHide' : 'Hide'}
+          onPress={onHidePress}
+          style={{width: '100%'}}
+        />
       </View>
     </View>
   );

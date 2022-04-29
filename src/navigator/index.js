@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {navigationRef} from './root-navigation';
 import {FavoritesScreen, HomeScreen, MovieDetailScreen} from '../screens';
+import HiddenItemsScreen from '../screens/hidden-items-screen';
 
 const RootStack = createStackNavigator();
 
@@ -30,6 +31,11 @@ export default function () {
             name={'favorites-screen'}
             component={FavoritesScreen}
             options={{title: 'Favorites', headerBackTitle: ''}}
+          />
+          <RootStack.Screen
+            name={'hidden-items-screen'}
+            component={HiddenItemsScreen}
+            options={{title: 'Hidden Items', headerBackTitle: ''}}
           />
         </RootStack.Navigator>
       </NavigationContainer>

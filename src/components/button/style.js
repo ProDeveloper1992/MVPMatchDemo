@@ -9,6 +9,8 @@ export default StyleSheet.create({
       justifyContent: 'center',
       marginVertical: 10,
       paddingHorizontal: 20,
+      paddingVertical: 12,
+      borderRadius: 8,
       backgroundColor: Colors.ui_button_black,
       backgroundColor: getBgColor(type, disabled),
       borderWidth: 1,

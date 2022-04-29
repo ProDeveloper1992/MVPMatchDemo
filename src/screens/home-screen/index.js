@@ -26,13 +26,19 @@ const Home = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('favorites-screen')}>
-          <Image
-            source={Icons.heart_outline}
-            style={[styles.searchIcon, {marginEnd: 20}]}
-          />
-        </TouchableOpacity>
+        <View style={styles.rowCenter}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('favorites-screen')}>
+            <Image source={Icons.heart_outline} style={styles.searchIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('hidden-items-screen')}>
+            <Image
+              source={Icons.hidden}
+              style={[styles.searchIcon, {marginHorizontal: 20}]}
+            />
+          </TouchableOpacity>
+        </View>
       ),
     });
   }, [navigation]);
@@ -42,6 +48,7 @@ const Home = () => {
   }, []);
 
   const loadMovies = async () => {
+    console.log('loadMovies');
     await dispatch(getMoviesList('aven'));
   };
 
@@ -117,6 +124,10 @@ const styles = StyleSheet.create({
   searchIcon: {
     width: 24,
     height: 24,
+  },
+  rowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
